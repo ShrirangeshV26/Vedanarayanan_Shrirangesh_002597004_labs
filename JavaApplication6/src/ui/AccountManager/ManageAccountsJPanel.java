@@ -3,18 +3,84 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package ui.AccountManager;
+import javax.swing.JPanel;
+import model.AccountDirectory;
+import model.Account;
+import java.awt.CardLayout;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author vedanarayananshrirangesh
  */
 public class ManageAccountsJPanel extends javax.swing.JPanel {
+    JPanel userProcessContainer;
+    AccountDirectory accountDirectory;
 
     /**
      * Creates new form ManageAccountsJPanel
      */
-    public ManageAccountsJPanel() {
+    public ManageAccountsJPanel(JPanel container, AccountDirectory directory) {
+        this.userProcessContainer = container;
+        this.accountDirectory = directory;
         initComponents();
+        populateTable();
+
+        btnBack.addActionListener(e -> goBack());
+        btnDeleteAccount.addActionListener(e -> deleteSelectedAccount());
+        btnViewDetails.addActionListener(e -> viewSelectedAccount());
+        btnSearch.addActionListener(e -> searchAccount());
+    }
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblAccounts.getModel();
+        model.setRowCount(0);
+        for (Account acc : accountDirectory.getAccounts()) {
+            Object[] row = new Object[]{acc.getBankName(), acc.getRoutingNumber(),
+                                        acc.getAccountNumber(), acc.getBalance()};
+            model.addRow(row);
+        }
+    }
+    private void deleteSelectedAccount() {
+        int selectedRow = tblAccounts.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Select an account to delete.");
+            return;
+        }
+        Account acc = accountDirectory.getAccounts().get(selectedRow);
+        accountDirectory.deleteAccount(acc);
+        populateTable();
+        JOptionPane.showMessageDialog(this, "Account deleted successfully.");
+    }
+
+    private void viewSelectedAccount() {
+        int selectedRow = tblAccounts.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Select an account to view.");
+            return;
+        }
+        Account acc = accountDirectory.getAccounts().get(selectedRow);
+        ViewAccountJPanel panel = new ViewAccountJPanel(userProcessContainer, acc);
+        userProcessContainer.add("ViewAccountJPanel", panel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.show(userProcessContainer, "ViewAccountJPanel");
+    }
+
+    private void searchAccount() {
+        String searchNum = txtSearchBox.getText();
+        DefaultTableModel model = (DefaultTableModel) tblAccounts.getModel();
+        model.setRowCount(0);
+        for (Account acc : accountDirectory.getAccounts()) {
+            if (acc.getAccountNumber().equals(searchNum)) {
+                Object[] row = new Object[]{acc.getBankName(), acc.getRoutingNumber(),
+                                            acc.getAccountNumber(), acc.getBalance()};
+                model.addRow(row);
+            }
+        }
+    }
+    private void goBack() {
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }
 
     /**
@@ -26,19 +92,94 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAccounts = new javax.swing.JTable();
+        btnSearch = new javax.swing.JButton();
+        btnViewDetails = new javax.swing.JButton();
+        btnDeleteAccount = new javax.swing.JButton();
+        txtSearchBox = new javax.swing.JTextField();
+        btnBack = new javax.swing.JButton();
+
+        jLabel1.setText("Manage Account");
+
+        tblAccounts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Bank Name", "Routing Number", "Account Number", "Balance"
+            }
+        ));
+        jScrollPane1.setViewportView(tblAccounts);
+
+        btnSearch.setText("Search");
+
+        btnViewDetails.setText("View Details");
+
+        btnDeleteAccount.setText("Delete Account");
+
+        btnBack.setText("<<<Back");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack)
+                        .addGap(205, 205, 205)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSearch)
+                                .addGap(52, 52, 52)
+                                .addComponent(txtSearchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnViewDetails)
+                            .addComponent(btnDeleteAccount))))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearch)
+                    .addComponent(txtSearchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnViewDetails)
+                .addGap(18, 18, 18)
+                .addComponent(btnDeleteAccount)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDeleteAccount;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnViewDetails;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblAccounts;
+    private javax.swing.JTextField txtSearchBox;
     // End of variables declaration//GEN-END:variables
 }
