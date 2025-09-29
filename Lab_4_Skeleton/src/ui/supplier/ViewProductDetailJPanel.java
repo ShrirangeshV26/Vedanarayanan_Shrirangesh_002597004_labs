@@ -239,7 +239,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         btnSave.setEnabled(false);
         tblFeatures.setEnabled(false);
         btnAddFeature.setEnabled(false);
-        btnRemove.setEnabled(false);
+        btnRemoveFeature.setEnabled(false);
 
         JOptionPane.showMessageDialog(this, "Product Information saved!");
         refreshTable();

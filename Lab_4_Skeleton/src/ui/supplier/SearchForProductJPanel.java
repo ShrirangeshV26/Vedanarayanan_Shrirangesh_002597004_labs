@@ -104,17 +104,18 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-        int idNum = Integer.parseInt(fieldProductID.getText());
+        int idNum = Integer.parseInt(idField.getText()); // fixed field name
         Product foundProduct = supplier.getProductCatalog().searchProduct(idNum);
-        
-        if(foundProduct != null){
-            ViewProductDetailJPanel panel = new ViewProductDetailJPanel(workArea, foundProduct);
-            workArea.remove(this);
-            workArea.add("ViewProductDetailJPanel", panel);
-            CardLayout layout = (CardLayout) workArea.getLayout();
-            layout.next(workArea);
-        } else {
+
+        if (foundProduct != null) {
+           ViewProductDetailJPanel panel = new ViewProductDetailJPanel(workArea, foundProduct);
+           workArea.remove(this);
+           workArea.add("ViewProductDetailJPanel", panel);
+           CardLayout layout = (CardLayout) workArea.getLayout();
+           layout.next(workArea);
+        }else {
             JOptionPane.showMessageDialog(this, "Product not found", "Warning", JOptionPane.WARNING_MESSAGE);
+    }
         
         
 }//GEN-LAST:event_searchButtonActionPerformed

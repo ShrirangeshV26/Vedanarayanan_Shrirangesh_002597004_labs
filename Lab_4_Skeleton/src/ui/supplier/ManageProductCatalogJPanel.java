@@ -158,13 +158,15 @@ public class ManageProductCatalogJPanel extends javax.swing.JPanel {
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
         int row = tblProducts.getSelectedRow();
-        if (row < 0){
-            JOptionPane.showMessageDialog(this, "Please select a row", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        product selectedProduct = (Product)tblProducts.getValueAt(row, 0);
+        if (row < 0) {
+          JOptionPane.showMessageDialog(this, "Please select a row", "Warning", JOptionPane.WARNING_MESSAGE);
+          return;
+    }
+
+        Product selectedProduct = (Product) tblProducts.getValueAt(row, 0); // Fix: capital 'P'
         ViewProductDetailJPanel vpdjp = new ViewProductDetailJPanel(workArea, selectedProduct);
-        workArea.add("ViewProductDetailWorkAreaJPanel",vpdjp);
-        CardLayout layout = (CardLayout)workArea.getLayout();
+        workArea.add("ViewProductDetailWorkAreaJPanel", vpdjp);
+        CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
         
     }//GEN-LAST:event_btnViewActionPerformed

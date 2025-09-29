@@ -201,45 +201,43 @@ public class AddSupplier extends javax.swing.JPanel {
     private void btnAttachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttachActionPerformed
         // TODO add your handling code here:
         int returnVal = fileChooser.showOpenDialog(this);
-        
-        if (returnVal == JFileChooser.APPROVE_OPTION){
-            File file = fileChooser.getSelectedFile();
-            URL url;
-            try
-            {
-                url = file.toURI().toURL();
-                logoImage = new ImageIcon(url);
-                logoImage = new ImageIcon(logoImage.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH));
-                
-                imgLogo.setIcon(logoImage);
-                
-            }catch (MalformedURLException ex){
-                Logger.getLogger(this.getName()).log(Level.SEVERE, null, ex);
-                
-            }
+
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+        File file = fileChooser.getSelectedFile();
+        URL url;
+        try {
+            url = file.toURI().toURL();
+            logoImage = new ImageIcon(url);
+            logoImage = new ImageIcon(logoImage.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+            imgLogo.setIcon(logoImage);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(this.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
         
         
     }//GEN-LAST:event_btnAttachActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
-        logoImage = null;
-        imgLogo.setIcon(logoImage);
+         logoImage = null;
+        imgLogo.setIcon(null);
         
-  
         
     }//GEN-LAST:event_btnRemoveActionPerformed
+    private void backAction() {
+    workArea.remove(this);
+    Component[] componentArray = workArea.getComponents();
+    Component component = componentArray[componentArray.length - 1];
+    ManageSuppliers manageSuppliersJPanel = (ManageSuppliers) component;
+    manageSuppliersJPanel.refreshTable();
+    CardLayout layout = (CardLayout) workArea.getLayout();
+    layout.previous(workArea);
+}
+
 
       
-      private void backAction() {
-        workArea.remove(this);
-        Component[] componentArray = workArea.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        ManageSuppliers manageSuppliersJPanel = (ManageSuppliers) component;
-        manageSuppliersJPanel.refreshTable();
-        CardLayout layout = (CardLayout) workArea.getLayout();
-        layout.previous(workArea);
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
