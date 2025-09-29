@@ -163,10 +163,7 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     private void PerformanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerformanceActionPerformed
         // TODO add your handling code here:
-//        ProductReportJPanel prjp = new workArea(userProcessContainer, supplier);
-//        workArea.add("ProductReportJPanelSupplier", prjp);
-//        CardLayout layout = (CardLayout)workArea.getLayout();
-//        layout.next(userProcessContainer);
+       
     }//GEN-LAST:event_PerformanceActionPerformed
 
     private void btnSupplierProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierProfileActionPerformed

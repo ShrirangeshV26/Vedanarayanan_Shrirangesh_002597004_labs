@@ -13,6 +13,7 @@ package ui.admin;
 
 import model.Supplier;
 import model.SupplierDirectory;
+import ui.admin.AddSupplier;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

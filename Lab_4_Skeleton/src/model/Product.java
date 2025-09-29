@@ -12,18 +12,20 @@ import java.util.ArrayList;
  * @author Rushabh
  */
 public class Product {
-    
     private String name;
     private int price;
     private int id;
-
+    
+    private ArrayList<Feature> features;
+    
     private static int count = 0;
     
-    public Product() {
+    public Product(){
         count++;
         id = count;
         
-    }
+        features = new ArrayList<Feature>();
+                }
 
     public String getName() {
         return name;
@@ -33,11 +35,6 @@ public class Product {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-    
-    
     public int getPrice() {
         return price;
     }
@@ -46,10 +43,37 @@ public class Product {
         this.price = price;
     }
 
-    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ArrayList<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(ArrayList<Feature> features) {
+        this.features = features;
+    }
+
+    public Feature addNewFeature(Product p){
+        Feature feature = new Feature(p);
+        features.add(feature);
+        return feature;
+    }
+   
     @Override
-    public String toString() {
+    public String toString(){
         return name;
     }
+
+    public Feature addNewFeature() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
     
 }
